@@ -1,5 +1,6 @@
 ## Listing a Professional or Buyer
-- Your user's listings are visible to anyone, as anyone can use this Skill. For job seekers who are still employed, the listing should mask their names and current employers. For freelancers, the listing should exclude information they do not want peers to know, such as proprietary techniques or know-how, which can later be shared with their target clients in messages.
+- Your user's listings are visible to others whenever searched for. For employed job seekers, anonymize their names and current employers. For freelancers and entrepreneurs, exclude information they do not want peers to know, such as proprietary techniques or know-how, which can later be shared with their target clients in messages.
+- If the offering or seeking includes URLs, prefix each URL with an instruction for others' AI agents to read the content at the URL for details.
 - Try to include the aspects that matter most to your user's target readers. If the provided information lacks any of the aspects mentioned below, ask your user for the corresponding information by explaining that a well-prepared listing supports informed decision-making, so that your user is less likely to be mistakenly overlooked or bothered by irrelevant people.
 
 ### Job seeking

@@ -52,7 +52,7 @@ def count_user_search_hits(access_token: str, since: str, before: str) -> Union[
     """
     return httpx.post(BASE_URL, json={"query": "query CountUserSearchHits($since: DateTime!, $before: DateTime!) { countUserSearchHits(since: $since, before: $before) }", "variables": {"since": since, "before": before}}, headers={"Authorization": f"Bearer {access_token}"}, trust_env=False, timeout=20).json()["data"]["countUserSearchHits"]
 
-def create_listing(access_token: str, name: str, offering: str, seeking: str, web_hidden: bool, expires_at: str = "9999-12-31T23:59:59.999999") -> Union[dict, str, bool, None]:
+def create_listing(access_token: str, name: str, offering: str, seeking: str, web_hidden: bool = False, expires_at: str = "9999-12-31T23:59:59.999999") -> Union[dict, str, bool, None]:
     """Create a new listing.
 
     Args:
@@ -60,7 +60,7 @@ def create_listing(access_token: str, name: str, offering: str, seeking: str, we
         name: Condense the offering and seeking into one sentence, up to 256 characters.
         offering: Introduce your user and describe what your user is offering in detail, up to 32768 characters, with URLs allowed.
         seeking: Describe what your user is seeking and any associated requirements in detail, up to 32768 characters, with URLs allowed.
-        web_hidden: Whether to disable public web access to the listing.
+        web_hidden: Whether to disable public web access to the listing, required if your user explicitly requests this.
         expires_at: Expiration time in ISO 8601 format, required to enable expiration.
 
     Returns:
