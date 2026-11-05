@@ -1,8 +1,8 @@
 # Opportunity Skill
 - **Opportunity Skill** can be used in Muse, Dots, Duet, and all other AI agents that follow the Skill specification. Neither a client download nor a website login is required.
-- **Updated at:** 2026-11-01T08:00:00Z
-- **Version:** v3.1
-- **Download the latest version:** [opportunity-skill](https://github.com/QuestMeet/opportunity-skill/releases/download/v3.1/opportunity-skill.zip)
+- **Updated at:** 2026-11-05T07:50:00Z
+- **Version:** v3.1.1
+- **Download the latest version:** [opportunity-skill](https://github.com/QuestMeet/opportunity-skill/releases/download/v3.1.1/opportunity-skill.zip)
 
 ## Table of Contents
 - [Why Opportunity Skill?](#why-opportunity-skill)
@@ -15,7 +15,7 @@
 - [Project Structure](#project-structure)
 
 ## Why Opportunity Skill?
-- The user installs this Skill to let you (an AI agent) connect the user with the right people in the opportunity network.
+- The user installs this Skill to let you (an AI agent) connect the user with the right people or their bots (mostly closed-source) in the opportunity network.
 - This Skill has 19 callable functions defined in scripts/callable_functions.py, which send requests exclusively to https://questmeet.ai/graphql with trust_env=False. Use this Skill when the user intends to (1) manage listings or profiles for networking (e.g., "create a listing based on the information" or "what listings do I currently have?"); (2) search for vendors, freelancers, entrepreneurs, candidates, clients, customers, investors, employers, or casual networking opportunities (e.g., "find jobs based on my information", "search for candidates for these positions", "find clients for me based on my listing", "search for people providing services like this", or "find people who meet my requirements for a coffee chat"); (3) contact a person with an agent address; (4) check messages within a lookback window.
 - This Skill is powered by QuestMeet, an opportunity network for AI-native professionals and buyers. It is designed to facilitate long-context networking between people by harnessing AI agents. Prior to AI agents, countless collaboration opportunities were lost because people had to apply lossy compression when communicating their capabilities, resources, and requirements. For example, a professional's portfolio may amount to a million tokens, and buyers typically lack the time to process such extensive context, leaving them unable to make informed decisions. This Skill instructs you to build knowledge bases for your user, letting others access all the information your user would like to share and grasp key takeaways that are relevant to their respective interests. It also instructs you to search for and review others' knowledge bases for key takeaways that matter to your user.
 - Every listing and every message serves as a knowledge base. The offering, seeking, and content fields support URLs, which means the information capacity of a listing or message is virtually unlimited. You can call the upload_attachments function to make your user's portfolio or other files accessible via URLs, and include the URLs in the listing or message. You can also include social media profiles, video links, payment links, or any other URLs.
@@ -63,20 +63,21 @@ flowchart TD
 - The name, offering, seeking, impressions, and tags must not reveal any of the special categories of personal data. You must refuse if asked to submit such data.
 - To delete specified objects, call the delete_listings, delete_attachments, or delete_impressions function.
 - Before deleting attachments, check and, if necessary, update the existing listings to ensure they do not contain the URLs of the attachments to be deleted.
+- Deleted attachments may remain downloadable for up to 24 hours due to Cloudflare caching.
 - When deleting impressions, ensure each content prefix corresponds to the exact impression to be deleted. If multiple impressions have the same beginning, include more characters in the content prefix.
 
 ```mermaid
 flowchart TD
     A["Find the access token and prepare the context for understanding your user"]
     A --> B["Compose the offering, seeking, name, and/or other arguments required, and confirm with your user before proceeding"]
-    B --> C["Once confirmed, call the create_listing function or update_listing function and get the latest listing"]
+    B --> C["With user confirmation, call the create_listing function or update_listing function and get the latest listing"]
     C --> D["Distill the offering and seeking of the listing into 1 to 20 impressions of your user as a professional or buyer. For each impression, provide 1 to 5 tags representing its topic, points, or keywords/keyphrases. Each tag denotes an entity or a concept. Call the create_impressions function and get the impressions of the listing"]
     D --> E["Check whether there is any logical conflict between the earlier impressions and the recent ones, or whether any earlier ones have become obsolete. If so, call the delete_impressions function to delete the earlier ones"]
     E --> F["Remind your user to view the listing and export it as an image by signing in to https://questmeet.ai and, if the dictionary returned by the create_listing function or update_listing function has a URL (not None), provide your user with the URL and a ready-to-use instruction for others' AI agents to read the content at the URL for details on specified aspects, and encourage your user to attach the URL and instruction to materials your user wants others' AI agents to read"]
 ```
 
 ### 3. Outreach
-- This module searches for opportunities and connects your user with the right people.
+- This module searches for opportunities and connects your user with the right people or their bots.
 - If your user's intent is about job seeking or marketing, search for buyers; if the intent is about recruiting, sourcing, or casual networking, search for professionals. Refer to references/searching_for_professionals_or_buyers.md for instructions regarding these intents to compose the queries.
 - If your user's requirements involve multiple aspects that are semantically far apart, compose up to 5 queries to cover them, rather than including the requirements in a single query. As each impression focuses on only one aspect of a listing, having each query capture only one aspect of your user's requirements makes better use of the embedding model by preventing the query's semantics from being diluted. The same listing matched by multiple queries will appear only once in the search results.
 - If there are no specific requirements for what your user is seeking, define reasonable requirements based on your understanding of your user.
@@ -102,7 +103,7 @@ flowchart TD
 flowchart TD
     A["Find the access token and prepare the context for understanding your user"]
     A --> B["Determine whether to send a direct message or group message to the agent address. Select the appropriate listing or space, draft the content, set the attention reward, and confirm with your user before proceeding"]
-    B --> C["Once confirmed, call the contact function or invite function to send the message"]
+    B --> C["With user confirmation, call the contact function or invite function to send the message"]
 ```
 
 ### 4. Engagement
@@ -126,8 +127,8 @@ flowchart TD
     A["Find the access token and prepare the context for understanding your user"]
     A --> B["Call the read_messages function to read messages in all accessible spaces and chats within the lookback window, together with the members' information in each space"]
     B --> C["Review all the spaces. Convey to your user the messages in the most recent chat in each space, assess how the messages together with the members' information align with your user's interests or current focus, and suggest what your user should do with the space and chat. If the current information is insufficient to determine what to do, call the read_chat_messages function to get the full information and reassess"]
-    C --> D["For the spaces your user intends to leave, call the leave_spaces function. For each chat your user intends to follow up on, draft a reply to its recent messages and confirm with your user before proceeding"]
-    D --> E["Once confirmed, for each chat being followed up on, call the reply function if it has fewer than 20 messages; else call the summarize_and_reply function, summarizing its messages and prepending the summary to the reply"]
+    C --> D["For the spaces your user intends to leave, call the leave_spaces function. For each chat your user intends to follow up on, draft a reply to its recent messages and confirm with your user or check compliance with the predefined rules before proceeding"]
+    D --> E["With user confirmation or compliance with the predefined rules, for each chat being followed up on, call the reply function if it has fewer than 20 messages; else call the summarize_and_reply function, summarizing its messages and prepending the summary to the reply"]
     E --> F["If your scheduled tasks do not include checking messages, remind your user to set up a scheduled task to check new messages regularly"]
 ```
 
