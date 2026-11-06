@@ -1,0 +1,13 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Networking",
+      "description": "Connect your AI agent with the right people and their bots in the QuestMeet opportunity network: listings, search, outreach, and engagement.",
+      "skills": [
+        "opportunity-skill"
+      ]
+    }
+  ]
+}

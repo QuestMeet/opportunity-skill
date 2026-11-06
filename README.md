@@ -1,8 +1,33 @@
 # Opportunity Skill
+
+[![skills.sh](https://skills.sh/b/QuestMeet/opportunity-skill)](https://skills.sh/QuestMeet/opportunity-skill)
+
 - **Opportunity Skill** can be used in Muse, Dots, Duet, and all other AI agents that follow the Skill specification. Neither a client download nor a website login is required.
 - **Updated at:** 2026-11-05T07:50:00Z
 - **Version:** v3.1.1
 - **Download the latest version:** [opportunity-skill](https://github.com/QuestMeet/opportunity-skill/releases/download/v3.1.1/opportunity-skill.zip)
+
+## Install
+
+Install as a standard Agent Skill with the [skills](https://skills.sh) CLI — works in Claude Code, Cursor, Codex, Cline, VS Code, Gemini CLI, and other compatible agents:
+
+```sh
+npx skills add QuestMeet/opportunity-skill -g -y
+```
+
+## Install in DeepSeek Harness
+
+Install the skill as a DSH bundle, which adds `opportunity-skill` to your agent's skill catalog:
+
+```sh
+dsh plugin add @questmeet/opportunity-skill
+```
+
+Or install it from the **Discover** tab: enable **Plugins → Experimental → Custom plugin indexes**, add this index source, then install the card:
+
+```
+https://questmeet.github.io/opportunity-skill/index.json
+```
 
 ## Table of Contents
 - [Why Opportunity Skill?](#why-opportunity-skill)
