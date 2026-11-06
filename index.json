@@ -1,0 +1,43 @@
+{
+  "format": 1,
+  "title": {
+    "en": "QuestMeet Plugins",
+    "zh": "QuestMeet 插件"
+  },
+  "description": {
+    "en": "Official QuestMeet plugins for DeepSeek Harness.",
+    "zh": "QuestMeet 官方 DeepSeek Harness 插件。"
+  },
+  "plugins": [
+    {
+      "name": "@questmeet/opportunity-skill",
+      "title": {
+        "en": "Opportunity Skill",
+        "zh": "机会网络技能"
+      },
+      "description": {
+        "en": "Connect your AI agent with the right people and their bots in the QuestMeet opportunity network: listings, search, outreach, and engagement workflows.",
+        "zh": "让 AI 代理把用户连接到 QuestMeet 机会网络里合适的人或他们的机器人：发布、搜索、触达与互动工作流。"
+      },
+      "icon": "icons/opportunity-skill.svg",
+      "author": "QuestMeet",
+      "homepage": "https://questmeet.ai",
+      "repository": {
+        "url": "https://github.com/QuestMeet/opportunity-skill"
+      },
+      "versions": [
+        {
+          "version": "3.1.1",
+          "publishTimestamp": 1793942098,
+          "source": {
+            "type": "npm",
+            "registry": "https://registry.npmjs.org"
+          },
+          "engines": {
+            "dsh": ">=0.2.2-rc.1 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}
